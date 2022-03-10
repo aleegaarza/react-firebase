@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.delete {
+ background-color: red;
+ border-radius: 10px;
+ border: none;
+ color: wheat;
+ margin-left: 5px;
+ padding: 5px; 
+ cursor: pointer;
+}
+
+.tweet .tweet-content {
+  text-align: left;
+  flex-basis: 85%;
+  padding: 4px 8px;
+
+}
+.tweet .tweet-content p {
+  border-bottom: 1px solid white;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+.likes img {
+  height: 20px;
+} 
+
+.likes {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
