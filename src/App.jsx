@@ -6,6 +6,7 @@ import Form from './Form';
 
 export default function App() {
   const [data, setData]=useState([]);
+  const [loading, setLoading]=useState(true);
 
   useEffect(()=>{
     const unsuscribe = 
@@ -23,6 +24,7 @@ export default function App() {
 
       } )
       setData(tweets);
+      setLoading(false)
     } );
     return () => {
       unsuscribe()
@@ -49,6 +51,7 @@ export default function App() {
     <div className="App">
       <h1>Hello world</h1>
       <Form data={data} setData={setData} />
+      {loading ? <h2>Cargando</h2> : 
       <section className='tweets'>
       {
         data.map(item =>(
@@ -74,6 +77,7 @@ export default function App() {
         ))}
 
       </section>
+        }
     </div>
   );
 }
