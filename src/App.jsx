@@ -33,14 +33,18 @@ export default function App() {
   },[] );
 
   const deleteTweet=(id) => {
-    const updatedTweets=data.filter((tweet) => {
-      return tweet.id !== id 
-    } )
+    const confirmDelete = window.confirm("Estás seguro que quieres borrar este tweet?");
+    if(confirmDelete){
+      const updatedTweets=data.filter((tweet) => {
+        return tweet.id !== id 
+      } )
+
+    
 
     setData(updatedTweets);
     fireStore.doc(`tweets${id}`).delete();
   }
-
+}
   function likeTweet(id, likes){
     const innerLikes = likes || 0;
     console.log(id);
@@ -53,6 +57,8 @@ export default function App() {
       <Form data={data} setData={setData} />
       {loading ? <h2>Cargando</h2> : 
       <section className='tweets'>
+
+
       {
         data.map(item =>(
           <div key={item.id} className="tweet">
