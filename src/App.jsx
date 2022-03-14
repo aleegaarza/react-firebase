@@ -7,6 +7,9 @@ import Form from './Form';
 export default function App() {
   const [data, setData]=useState([]);
   const [loading, setLoading]=useState(true);
+  const [favs, setFavs]=useState([]);
+  const [view, setView]=useState("feed");
+
 
   useEffect(()=>{
     const unsuscribe = 
@@ -24,6 +27,10 @@ export default function App() {
 
       } )
       setData(tweets);
+      setFavs(tweets.filter(item => {
+          return item.likes > 0;
+        }
+      ) )
       setLoading(false)
     } );
     return () => {
@@ -57,10 +64,11 @@ export default function App() {
       <Form data={data} setData={setData} />
       {loading ? <h2>Cargando</h2> : 
       <section className='tweets'>
+        <button type='button' onClick={()=> setView("feed") } >Tweets</button>
+        <button type='button' onClick={()=> setView("favs") } >Favs</button>
 
 
-      {
-        data.map(item =>(
+      {(view === "feed" ? data : favs).map(item =>(
           <div key={item.id} className="tweet">
           <div className='tweet-content'>
           <p>Tweet: {item.tweet} </p>
