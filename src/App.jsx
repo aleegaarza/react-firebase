@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { fireStore } from './firebase/firebase';
+import { auth, fireStore, loginWithGoogle, logout } from './firebase/firebase';
 import './index.css';
 import Form from './Form';
 
@@ -9,9 +9,26 @@ export default function App() {
   const [loading, setLoading]=useState(true);
   const [favs, setFavs]=useState([]);
   const [view, setView]=useState("feed");
+  const [user, setUser]=useState(null);
 
+  //Authentication
+useEffect(()=>{
+  
+  const disconnect = fireStore.collection("tweets")
+  .onSnapshot((snapshot)=>{
+
+  } );
+
+  auth.onAuthStateChanged((user) => {
+    console.warn("LOGGED WIDTH:", user);
+    setUser(user);
+    
+  });
+  return () =>{disconnect()}
+},[]);
 
   useEffect(()=>{
+
     const unsuscribe = 
     fireStore.collection('tweets')
     .onSnapshot((snapshot)=>{
@@ -37,6 +54,7 @@ export default function App() {
       unsuscribe()
     }
     
+    
   },[] );
 
   const deleteTweet=(id) => {
@@ -60,8 +78,23 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Hello world</h1>
+      <h1>Devs United</h1>
       <Form data={data} setData={setData} />
+
+      <section className='login' >
+        {user && (
+          <div>
+            
+          <p>Hola {user.displayName} </p>
+          <img src={user.photoURL} alt={user.displayName} />
+            
+          </div>
+        ) }
+        <button className='btn-login' type='button' onClick={user ? logout : loginWithGoogle } >
+          {user ? "cerrar" : "iniciar" } sesión
+        </button>
+      </section>
+
       {loading ? <h2>Cargando</h2> : 
       <section className='tweets'>
         <button type='button' onClick={()=> setView("feed") } >Tweets</button>

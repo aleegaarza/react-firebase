@@ -44,3 +44,12 @@ code {
   border: none;
   cursor: pointer;
 }
+
+.btn-login {
+  max-width: 30%;
+  
+}
+.login {
+  max-width: 30%;
+  align-items: center;
+}
