@@ -1,33 +1,25 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-
 .delete {
- background-color: red;
- border-radius: 10px;
- border: none;
- color: wheat;
- margin-left: 5px;
- padding: 5px; 
- cursor: pointer;
+  position: absolute;
 }
 
 .tweet .tweet-content {
   text-align: left;
   flex-basis: 85%;
   padding: 4px 8px;
-
 }
 .tweet .tweet-content p {
   border-bottom: 1px solid white;
@@ -37,7 +29,7 @@ code {
 
 .likes img {
   height: 20px;
-} 
+}
 
 .likes {
   background: none;
@@ -47,9 +39,18 @@ code {
 
 .btn-login {
   max-width: 30%;
-  
 }
 .login {
   max-width: 30%;
   align-items: center;
+  position: absolute;
+  width: 1440px;
+  height: 218px;
+  left: calc(50% - 1440px / 2);
+  top: 52px;
+
+  background: #150714;
+}
+
+.header {
 }

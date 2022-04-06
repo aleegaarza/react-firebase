@@ -1,130 +1,137 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth, fireStore, loginWithGoogle, logout } from './firebase/firebase';
 import './index.css';
 import Form from './Form';
+import logobig from "./logobig.svg";
+import like from "./like.svg";
+import deleteIcon from "./deleteIcon.svg"
 
 
 export default function App() {
-  const [data, setData]=useState([]);
-  const [loading, setLoading]=useState(true);
-  const [favs, setFavs]=useState([]);
-  const [view, setView]=useState("feed");
-  const [user, setUser]=useState(null);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [favs, setFavs] = useState([]);
+  const [view, setView] = useState("feed");
+  const [user, setUser] = useState(null);
 
   //Authentication
-useEffect(()=>{
-  
-  const disconnect = fireStore.collection("tweets")
-  .onSnapshot((snapshot)=>{
+  useEffect(() => {
 
-  } );
+    const disconnect = fireStore.collection("tweets")
+      .onSnapshot((snapshot) => {
 
-  auth.onAuthStateChanged((user) => {
-    console.warn("LOGGED WIDTH:", user);
-    setUser(user);
-    
-  });
-  return () =>{disconnect()}
-},[]);
+      });
 
-  useEffect(()=>{
+    auth.onAuthStateChanged((user) => {
+      console.warn("LOGGED WIDTH:", user);
+      setUser(user);
 
-    const unsuscribe = 
-    fireStore.collection('tweets')
-    .onSnapshot((snapshot)=>{
-      const tweets = []
-      snapshot.forEach(doc=>{
-        const snap= {
-          tweet: doc.data().tweet,
-          author: doc.data().author,
-          id: doc.id,
-          likes: doc.data().likes
-        }
-        tweets.push(snap)
+    });
+    return () => { disconnect() }
+  }, []);
 
-      } )
-      setData(tweets);
-      setFavs(tweets.filter(item => {
-          return item.likes > 0;
-        }
-      ) )
-      setLoading(false)
-    } );
+  useEffect(() => {
+
+    const unsuscribe =
+      fireStore.collection('tweets')
+        .onSnapshot((snapshot) => {
+          const tweets = []
+          snapshot.forEach(doc => {
+            const snap = {
+              tweet: doc.data().tweet,
+              author: doc.data().author,
+              id: doc.id,
+              likes: doc.data().likes
+            }
+            tweets.push(snap)
+
+          })
+          setData(tweets);
+          setFavs(tweets.filter(item => {
+            return item.likes > 0;
+          }
+          ))
+          setLoading(false)
+        });
     return () => {
       unsuscribe()
     }
-    
-    
-  },[] );
 
-  const deleteTweet=(id) => {
+
+  }, []);
+
+  const deleteTweet = (id) => {
     const confirmDelete = window.confirm("Estás seguro que quieres borrar este tweet?");
-    if(confirmDelete){
-      const updatedTweets=data.filter((tweet) => {
-        return tweet.id !== id 
-      } )
+    if (confirmDelete) {
+      const updatedTweets = data.filter((tweet) => {
+        return tweet.id !== id
+      })
 
-    
 
-    setData(updatedTweets);
-    fireStore.doc(`tweets${id}`).delete();
+
+      setData(updatedTweets);
+      fireStore.doc(`tweets${id}`).delete();
+    }
   }
-}
-  function likeTweet(id, likes){
+  function likeTweet(id, likes) {
     const innerLikes = likes || 0;
     console.log(id);
-    fireStore.doc(`tweets/${id}`).update({likes: innerLikes + 1 })
+    fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 })
   }
 
   return (
     <div className="App">
-      <h1>Devs United</h1>
+      <div >
+        <img src={logobig} alt="" />
+      </div>
       <Form data={data} setData={setData} />
 
       <section className='login' >
         {user && (
           <div>
-            
-          <p>Hola {user.displayName} </p>
-          <img src={user.photoURL} alt={user.displayName} />
-            
+
+            <p>Hola {user.displayName} </p>
+            <img src={user.photoURL} alt={user.displayName} />
+
           </div>
-        ) }
-        <button className='btn-login' type='button' onClick={user ? logout : loginWithGoogle } >
-          {user ? "cerrar" : "iniciar" } sesión
+        )}
+        <button className='btn-login' type='button' onClick={user ? logout : loginWithGoogle} >
+          {user ? "cerrar" : "iniciar"} sesión
         </button>
       </section>
 
-      {loading ? <h2>Cargando</h2> : 
-      <section className='tweets'>
-        <button type='button' onClick={()=> setView("feed") } >Tweets</button>
-        <button type='button' onClick={()=> setView("favs") } >Favs</button>
+      {loading ? <h2>Cargando</h2> :
+        <section className='tweets'>
+          <button type='button' onClick={() => setView("feed")} >Tweets</button>
+          <button type='button' onClick={() => setView("favs")} >Favs</button>
 
 
-      {(view === "feed" ? data : favs).map(item =>(
-          <div key={item.id} className="tweet">
-          <div className='tweet-content'>
-          <p>Tweet: {item.tweet} </p>
-          <p> Autor: <strong>{item.author} </strong></p>
-          </div>
-          <div className='tweet-actions' >
-            <button className='likes'
-            onClick={()=> likeTweet(item.id, item.likes)} >
-              <img src="" alt="like" />
-              <span>
-                {item.likes || 0}
-              </span>
-            </button>
-          </div>
-          <button className='delete' 
-          onClick={()=> deleteTweet(item.id) } >x</button>
-          <hr/>
+          {(view === "feed" ? data : favs).map(item => (
+            <div key={item.id} className="tweet">
+              <div className='tweet-content'>
+                <p>Tweet: {item.tweet} </p>
+                <p> Autor: <strong>{item.author} </strong></p>
+              </div>
+              <div className='tweet-actions' >
+                <button className='likes'
+                  onClick={() => likeTweet(item.id, item.likes)} >
+                  <img src={like} alt="like" />
+                  <span>
+                    {item.likes || 0}
+                  </span>
+                </button>
+              </div>
+              <button className='delete'
+                onClick={() => deleteTweet(item.id)} >
+                <img src={deleteIcon} alt="" />
+              </button>
+              <hr />
 
-          </div>
-        ))}
+            </div>
+          ))}
 
-      </section>
-        }
+        </section>
+      }
     </div>
   );
 }
