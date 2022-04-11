@@ -27,6 +27,29 @@ export default function App() {
 
     const disconnect = fireStore.collection("tweets")
       .onSnapshot((snapshot) => {
+        const tweets = [];
+        snapshot.forEach((doc) => {
+          const {
+            tweet,
+            author,
+            email,
+            uid,
+            likes
+          } = doc.data();
+
+          const snap = {
+            tweet,
+            author,
+            id: doc.id,
+            email,
+            uid,
+            likes
+
+          };
+          tweets.push(snap);
+
+        });
+        setData(tweets);
 
       });
 
@@ -93,21 +116,17 @@ export default function App() {
   return (
     <div className="App">
 
-
       <div >
         <img src={logobig} alt="" />
       </div>
-
-      <Form data={data}
-        setData={setData}
-        user={user || {}} />
-
       <section className='login' >
         {user && (
           <div>
-
+            <Form data={data}
+              setData={setData}
+              user={user || {}} />
             <p>Hola {user.displayName} </p>
-            <img src={user.photoURL} alt={user.displayName} />
+            <img src={user.photoURL} alt={user.displayName} referrerpolicy="no-referrer" s />
 
           </div>
         )}
