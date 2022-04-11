@@ -47,10 +47,13 @@ export default function App() {
 
           };
           tweets.push(snap);
-
-        });
+        })
         setData(tweets);
-
+        setFavs(tweets.filter(item => {
+          return item.likes > 0;
+        }
+        ))
+        setLoading(false)
       });
 
     auth.onAuthStateChanged((user) => {
@@ -61,35 +64,6 @@ export default function App() {
     return () => { disconnect() }
   }, []);
 
-  useEffect(() => {
-
-    const unsuscribe =
-      fireStore.collection('tweets')
-        .onSnapshot((snapshot) => {
-          const tweets = []
-          snapshot.forEach(doc => {
-            const snap = {
-              tweet: doc.data().tweet,
-              author: doc.data().author,
-              id: doc.id,
-              likes: doc.data().likes
-            }
-            tweets.push(snap)
-
-          })
-          setData(tweets);
-          setFavs(tweets.filter(item => {
-            return item.likes > 0;
-          }
-          ))
-          setLoading(false)
-        });
-    return () => {
-      unsuscribe()
-    }
-
-
-  }, []);
 
   //delete tweet
   const deleteTweet = (id) => {

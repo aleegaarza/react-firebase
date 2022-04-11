@@ -40,6 +40,7 @@ code {
 .btn-login {
   max-width: 30%;
 }
+/**
 .login {
   max-width: 30%;
   align-items: center;
@@ -50,7 +51,7 @@ code {
   top: 52px;
 
   background: #150714;
-}
+} */
 
 .header {
 }
