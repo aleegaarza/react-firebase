@@ -1,10 +1,18 @@
+//dependencies
 import React, { useEffect, useState } from 'react';
+
+//firebase
 import { auth, fireStore, loginWithGoogle, logout } from './firebase/firebase';
-import './index.css';
+
+
+//components
 import Form from './Form';
+
+//styles
 import logobig from "./logobig.svg";
 import like from "./like.svg";
 import deleteIcon from "./deleteIcon.svg"
+import './index.css';
 
 
 export default function App() {
@@ -60,6 +68,7 @@ export default function App() {
 
   }, []);
 
+  //delete tweet
   const deleteTweet = (id) => {
     const confirmDelete = window.confirm("Estás seguro que quieres borrar este tweet?");
     if (confirmDelete) {
@@ -73,6 +82,8 @@ export default function App() {
       fireStore.doc(`tweets${id}`).delete();
     }
   }
+
+  //like tweets
   function likeTweet(id, likes) {
     const innerLikes = likes || 0;
     console.log(id);
@@ -81,10 +92,15 @@ export default function App() {
 
   return (
     <div className="App">
+
+
       <div >
         <img src={logobig} alt="" />
       </div>
-      <Form data={data} setData={setData} />
+
+      <Form data={data}
+        setData={setData}
+        user={user || {}} />
 
       <section className='login' >
         {user && (

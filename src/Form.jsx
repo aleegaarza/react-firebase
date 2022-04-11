@@ -1,59 +1,67 @@
 import React from "react";
 import useForm from "./useForm";
 import { fireStore } from "./firebase/firebase";
+import Button from "./components/Button";
 
 const Form = (
-    {data=[],
-    setData}
+    { data = [],
+        setData,
+        user, }
 ) => {
-    const [value, handleInput, setValue]=useForm({
-        tweet:"",
-        author:""
+    const [value, handleInput, setValue] = useForm({
+        tweet: ""
     })
-    const {tweet, author} = value;
+    const { tweet } = value;
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault()
-        const addTweet = fireStore.collection('tweets').add(value)
-        const getDoc= addTweet.then(doc=>(doc.get()))
-        getDoc.then(doc=>{
-            const currentTweet={
+        //Adding tweets
+        const newTweet = {
+            ...value,
+            uid: user.uid,
+            email: user.email,
+            author: user.displayName
+        }
+
+        const addTweet = fireStore.collection('tweets').add(newTweet)
+        //reference of created document
+        const getDoc = addTweet.then(doc => (doc.get()))
+        //getting tweets
+        getDoc.then(doc => {
+            const currentTweet = {
                 tweet: doc.data().tweet,
-                author: doc.data().author, 
-                id: doc.id
-                
+                author: doc.data().author,
+                id: doc.id,
+                uid: doc.data().uid,
+                email: doc.data().email
+
             }
             setData([
                 currentTweet,
                 ...data
             ])
 
-        } )
-
-        setValue({
-            tweet:"",
-            author:""
         })
 
-        
+        setValue({
+            tweet: ""
+        })
+
+
     }
 
     return (
         <form>
             <textarea
-            name='tweet'
-            value={tweet}
-            onChange={handleInput} >
+                name='tweet'
+                value={tweet}
+                onChange={handleInput} >
 
             </textarea>
-            <input type="text"
-            name='author'
-            placeholder="author"
-            value={author}
-            onChange={handleInput} />
-            <button onClick={handleSubmit}>
+
+            <Button onClick={handleSubmit}>
                 Submit
-            </button>
+            </Button>
         </form>
     )
 }
