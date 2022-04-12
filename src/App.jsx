@@ -71,9 +71,7 @@ export default function App() {
     if (confirmDelete) {
       const updatedTweets = data.filter((tweet) => {
         return tweet.id !== id
-      })
-
-
+      });
 
       setData(updatedTweets);
       fireStore.doc(`tweets${id}`).delete();
@@ -83,16 +81,19 @@ export default function App() {
   //like tweets
   function likeTweet(id, likes) {
     const innerLikes = likes || 0;
-    console.log(id);
     fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 })
   }
 
   return (
-    <div className="App">
 
-      <div >
-        <img src={logobig} alt="" />
-      </div>
+    <div className="App">
+      <header>
+        <div >
+          <img src={logobig} alt="" />
+        </div>
+      </header>
+
+
       <section className='login' >
         {user && (
           <div>
@@ -100,7 +101,7 @@ export default function App() {
               setData={setData}
               user={user || {}} />
             <p>Hola {user.displayName} </p>
-            <img src={user.photoURL} alt={user.displayName} referrerpolicy="no-referrer" s />
+            <img src={user.photoURL} alt={user.displayName} referrerPolicy="no-referrer" s />
 
           </div>
         )}
@@ -118,23 +119,29 @@ export default function App() {
           {(view === "feed" ? data : favs).map(item => (
             <div key={item.id} className="tweet">
               <div className='tweet-content'>
+                <p> @<strong>{item.author} </strong></p>
                 <p>Tweet: {item.tweet} </p>
-                <p> Autor: <strong>{item.author} </strong></p>
+                <div className='tweet-actions' >
+                  <button className='likes'
+                    onClick={() => likeTweet(item.id, item.likes)} >
+                    <img src={like} alt="like" />
+                    <span>
+                      {item.likes || 0}
+                    </span>
+                  </button>
+
+                  {
+                    (user !== null && user.uid === item.uid) &&
+                    <button className='delete'
+                      onClick={() => deleteTweet(item.id)} >
+                      <img src={deleteIcon} alt="" />
+                    </button>
+                  }
+
+                </div>
               </div>
-              <div className='tweet-actions' >
-                <button className='likes'
-                  onClick={() => likeTweet(item.id, item.likes)} >
-                  <img src={like} alt="like" />
-                  <span>
-                    {item.likes || 0}
-                  </span>
-                </button>
-              </div>
-              <button className='delete'
-                onClick={() => deleteTweet(item.id)} >
-                <img src={deleteIcon} alt="" />
-              </button>
-              <hr />
+
+
 
             </div>
           ))}
