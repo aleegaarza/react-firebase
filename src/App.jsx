@@ -34,7 +34,8 @@ export default function App() {
             author,
             email,
             uid,
-            likes
+            likes,
+            photoURL,
           } = doc.data();
 
           const snap = {
@@ -43,6 +44,7 @@ export default function App() {
             id: doc.id,
             email,
             uid,
+            photoURL,
             likes
 
           };
@@ -116,11 +118,15 @@ export default function App() {
 
       )}
 
+
+      <section className='favs' >
+        <button className='btn-feed' type='button' onClick={() => setView("feed")} >Tweets</button>
+        <button className='btn-favs' type='button' onClick={() => setView("favs")} >Favs</button>
+      </section>
+
       <section className='tweets'>
 
-        <button type='button' onClick={() => setView("feed")} >Tweets</button>
-        <button type='button' onClick={() => setView("favs")} >Favs</button>
-
+        {loading ? <p>cargado</p> : null}
 
         {(view === "feed" ? data : favs).map(item => (
           <div key={item.id} className="tweet">

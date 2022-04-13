@@ -33,6 +33,7 @@ const Form = (
                 author: doc.data().author,
                 id: doc.id,
                 uid: doc.data().uid,
+                photoURL: doc.data().photoURL,
                 email: doc.data().email
 
             }
@@ -60,7 +61,7 @@ const Form = (
             </textarea>
 
             <Button className="btn-tweet" onClick={handleSubmit}>
-                Submit
+                POST
             </Button>
         </form>
     )

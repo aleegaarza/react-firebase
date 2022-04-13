@@ -81,7 +81,48 @@ code {
   width: 24px;
   z-index: 2;
 }
+section.favs {
+  margin: 0 auto;
+  max-width: 480px;
+  height: 90px;
+  background-color: #2e132c;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.02), 0px 4px 4px 0px rgba(0, 0, 0, 0.4);
+  display: flex;
+  margin: 4px auto 12px;
+  padding: 4px 62px 4px 8px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn-favs {
+  width: 30%;
+  height: 30px;
 
+  color: pink;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 22px;
+  border: none;
+  padding: 5px;
+  margin: 20px;
+  cursor: pointer;
+}
+.btn-feed {
+  width: 60%;
+  height: 48px;
+  color: pink;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 22px;
+  border: none;
+  padding: 5px;
+  margin: 20px;
+  cursor: pointer;
+}
 section.tweets {
   margin: 0 auto;
   max-width: 480px;
@@ -124,6 +165,8 @@ section.tweets {
   background: none;
   border: none;
   cursor: pointer;
+}
+.btn-feed {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
