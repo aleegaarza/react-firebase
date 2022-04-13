@@ -20,8 +20,10 @@ const Form = (
             ...value,
             uid: user.uid,
             email: user.email,
-            author: user.displayName
+            author: user.displayName,
+            photoURL: user.photoURL
         }
+
 
         const addTweet = fireStore.collection('tweets').add(newTweet)
         //reference of created document
