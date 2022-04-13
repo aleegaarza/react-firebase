@@ -51,7 +51,7 @@ const Form = (
     }
 
     return (
-        <form>
+        <form className="tweet-form" >
             <textarea
                 name='tweet'
                 value={tweet}
@@ -59,7 +59,7 @@ const Form = (
 
             </textarea>
 
-            <Button onClick={handleSubmit}>
+            <Button className="btn-tweet" onClick={handleSubmit}>
                 Submit
             </Button>
         </form>

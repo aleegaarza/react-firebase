@@ -2,6 +2,11 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+  background-color: #2e132c;
+}
+.centered {
+  justify-content: center;
+  align-items: center;
 }
 body {
   margin: 0;
@@ -12,19 +17,88 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.login {
+  align-items: center;
+}
+.btn-login {
+  max-width: 240px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.delete {
-  position: absolute;
-}
-.tweets {
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
+.login,
+.tweet-form {
+  align-items: flex-end;
+  background-color: #ccc;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.02), 0px 4px 4px 0px rgba(0, 0, 0, 0.4);
   display: flex;
+  flex-direction: column;
+  margin: 0 auto 24px;
+  max-width: 480px;
+  padding: 4px 8px;
+  background-color: #150714;
+}
+
+.tweet-form textarea,
+.tweet-form input {
+  background-color: transparent;
+  border: 2px solid #2e132c;
+  display: block;
+}
+
+.tweet-form textarea:focus,
+.tweet-form input:focus {
+  background-color: #2e132c;
+  color: white;
+}
+
+.tweet-form textarea {
+  margin: 4px auto;
+  min-height: 100px;
+  width: 100%;
+}
+
+.tweet-form input,
+.btn-tweet {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  width: 240px;
+}
+.delete {
+  border-radius: 100%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  height: 24px;
+  margin-left: 5px;
+  padding: 5px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 24px;
+  z-index: 2;
+}
+
+section.tweets {
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+.tweet {
+  background-color: #2e132c;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.02), 0px 4px 4px 0px rgba(0, 0, 0, 0.4);
+  display: flex;
+  margin: 4px auto 12px;
+  padding: 4px 62px 4px 8px;
+  position: relative;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .tweet .tweet-content {
@@ -32,12 +106,16 @@ code {
   flex-basis: 85%;
   padding: 4px 8px;
 }
+
 .tweet .tweet-content p {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #b2b2b2;
   padding-bottom: 4px;
   margin-bottom: 4px;
 }
 
+.btn-login {
+  max-width: 240px;
+}
 .likes img {
   height: 20px;
 }
@@ -48,22 +126,4 @@ code {
   cursor: pointer;
 }
 
-.btn-login {
-  max-width: 30%;
-}
-/**
-.login {
-  max-width: 30%;
-  align-items: center;
-  position: absolute;
-  width: 1440px;
-  height: 218px;
-  left: calc(50% - 1440px / 2);
-  top: 52px;
-
-  background: #150714;
-} */
-
-.header {
-}
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");

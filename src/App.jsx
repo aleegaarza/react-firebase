@@ -86,7 +86,7 @@ export default function App() {
 
   return (
 
-    <div className="App">
+    <div className="App centered">
       <header>
         <div >
           <img src={logobig} alt="" />
@@ -96,12 +96,10 @@ export default function App() {
 
       <section className='login' >
         {user && (
-          <div>
-            <Form data={data}
-              setData={setData}
-              user={user || {}} />
+          <div className='user-info' >
+
             <p>Hola {user.displayName} </p>
-            <img src={user.photoURL} alt={user.displayName} referrerPolicy="no-referrer" s />
+            <img src={user.photoURL} alt={user.displayName} referrerPolicy="no-referrer" />
 
           </div>
         )}
@@ -110,44 +108,52 @@ export default function App() {
         </button>
       </section>
 
-      {loading ? <h2>Cargando</h2> :
-        <section className='tweets'>
-          <button type='button' onClick={() => setView("feed")} >Tweets</button>
-          <button type='button' onClick={() => setView("favs")} >Favs</button>
+      {user && (
+        <Form data={data}
+          setData={setData}
+          user={user || {}} />
 
 
-          {(view === "feed" ? data : favs).map(item => (
-            <div key={item.id} className="tweet">
-              <div className='tweet-content'>
-                <p> @<strong>{item.author} </strong></p>
-                <p>Tweet: {item.tweet} </p>
-                <div className='tweet-actions' >
-                  <button className='likes'
-                    onClick={() => likeTweet(item.id, item.likes)} >
-                    <img src={like} alt="like" />
-                    <span>
-                      {item.likes || 0}
-                    </span>
-                  </button>
+      )}
 
-                  {
-                    (user !== null && user.uid === item.uid) &&
-                    <button className='delete'
-                      onClick={() => deleteTweet(item.id)} >
-                      <img src={deleteIcon} alt="" />
-                    </button>
-                  }
+      <section className='tweets'>
 
-                </div>
-              </div>
+        <button type='button' onClick={() => setView("feed")} >Tweets</button>
+        <button type='button' onClick={() => setView("favs")} >Favs</button>
 
 
+        {(view === "feed" ? data : favs).map(item => (
+          <div key={item.id} className="tweet">
+            <div className='tweet-content'>
+              <img src={item.photoURL} alt="" />
+              <p> @<strong>{item.author} </strong></p>
+              <p>Tweet: {item.tweet} </p>
 
             </div>
-          ))}
+            <div className='tweet-actions' >
+              <button className='likes'
+                onClick={() => likeTweet(item.id, item.likes)} >
+                <img src={like} alt="like" />
+                <span>
+                  {item.likes || 0}
+                </span>
+              </button>
+            </div>
 
-        </section>
-      }
+            {
+              (user !== null && user.uid === item.uid) &&
+              <button className='delete'
+                onClick={() => deleteTweet(item.id)} >
+                <img src={deleteIcon} alt="" />
+              </button>
+            }
+
+
+          </div>
+        ))}
+
+      </section>
+
     </div>
   );
 }
