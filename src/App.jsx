@@ -76,7 +76,7 @@ export default function App() {
       });
 
       setData(updatedTweets);
-      fireStore.doc(`tweets${id}`).delete();
+      fireStore.doc(`tweets/${id}`).delete();
     }
   }
 
