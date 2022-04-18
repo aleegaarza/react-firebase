@@ -54,6 +54,7 @@ export default function App() {
           return item.likes > 0;
         }
         ))
+        setLoading(false);
       });
 
     return () => { disconnect() }
@@ -89,9 +90,6 @@ export default function App() {
       setData={setData}
       />
 
-      
-      
-
       {user && (
         <Form data={data}
           setData={setData}
@@ -100,14 +98,12 @@ export default function App() {
 
       )}
 
-
       <section className='favs' >
         <button className='btn-feed' type='button' onClick={() => setView("feed")} >Tweets</button>
         <button className='btn-favs' type='button' onClick={() => setView("favs")} >Favs</button>
       </section>
 
       <section className='tweets'>
-        
         
       {loading ? <p>cargando</p> : null}
 
