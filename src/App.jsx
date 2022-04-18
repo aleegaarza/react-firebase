@@ -7,11 +7,11 @@ import { auth, fireStore, loginWithGoogle, logout } from './firebase/firebase';
 
 //components
 import Form from './Form';
+import Login from './components/pages/Login';
 
 //styles
-import logobig from "./logobig.svg";
 import like from "./like.svg";
-import deleteIcon from "./deleteIcon.svg"
+import deleteIcon from "./deleteIcon.svg";
 import './index.css';
 
 
@@ -22,7 +22,6 @@ export default function App() {
   const [view, setView] = useState("feed");
   const [user, setUser] = useState(null);
 
-  //Authentication
   useEffect(() => {
 
     const disconnect = fireStore.collection("tweets")
@@ -55,17 +54,10 @@ export default function App() {
           return item.likes > 0;
         }
         ))
-        setLoading(false)
       });
 
-    auth.onAuthStateChanged((user) => {
-      console.warn("LOGGED WIDTH:", user);
-      setUser(user);
-
-    });
     return () => { disconnect() }
   }, []);
-
 
   //delete tweet
   const deleteTweet = (id) => {
@@ -89,26 +81,16 @@ export default function App() {
   return (
 
     <div className="App centered">
-      <header>
-        <div >
-          <img src={logobig} alt="" />
-        </div>
-      </header>
 
+      <Login 
+      user={user}
+      setUser={setUser}
+      data={data}
+      setData={setData}
+      />
 
-      <section className='login' >
-        {user && (
-          <div className='user-info' >
-
-            <p>Hola {user.displayName} </p>
-            <img src={user.photoURL} alt={user.displayName} referrerPolicy="no-referrer" />
-
-          </div>
-        )}
-        <button className='btn-login' type='button' onClick={user ? logout : loginWithGoogle} >
-          {user ? "cerrar" : "iniciar"} sesión
-        </button>
-      </section>
+      
+      
 
       {user && (
         <Form data={data}
@@ -125,8 +107,10 @@ export default function App() {
       </section>
 
       <section className='tweets'>
+        
+        
+      {loading ? <p>cargando</p> : null}
 
-        {loading ? <p>cargado</p> : null}
 
         {(view === "feed" ? data : favs).map(item => (
           <div key={item.id} className="tweet">
