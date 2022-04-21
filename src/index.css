@@ -170,5 +170,40 @@ section.tweets {
   position: absolute;
   right: 30px;
 }
+.welcome {
+  position: absolute;
+width: 60%;
+height: 100px;
+color: white;
+font-family: 'Silkscreen';
+font-style: normal;
+font-weight: 700;
+font-size: 50px;
+line-height: 50px;
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+}
+
+.home {
+  height: 100%;
+width: 100%;
+left: 0px;
+top: 0px;
+border-radius: 0px;
+position: absolute;
+display: flex;
+align-content: center;
+justify-content: center;
+flex-direction: column;
+background: #2E132C;
+
+}
+.imglogo {
+  height: 208.72727966308594px;
+width: 313.33331298828125px;
+
+}
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");

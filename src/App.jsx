@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 
 //firebase
-import { auth, fireStore, loginWithGoogle, logout } from './firebase/firebase';
+import { fireStore, logout, auth, loginWithGoogle } from './firebase/firebase';
 
 
 //components
 import Form from './Form';
-import Login from './components/pages/Login';
 
 //styles
 import like from "./like.svg";
 import deleteIcon from "./deleteIcon.svg";
 import './index.css';
+import logobig from "./logobig.svg";
 
 
 export default function App() {
@@ -57,6 +57,10 @@ export default function App() {
         setLoading(false);
       });
 
+      auth.onAuthStateChanged((user) => {
+        console.warn('LOGGED WITH:', user);
+        setUser(user);
+      });
     return () => { disconnect() }
   }, []);
 
@@ -79,25 +83,50 @@ export default function App() {
     fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 })
   }
 
+  
+
   return (
 
     <div className="App centered">
 
-      <Login 
-      user={user}
-      setUser={setUser}
-      data={data}
-      setData={setData}
-      />
 
+      <section className='login' >
+        {user === null &&  
+
+        <div className='home' >
+          <div>
+          <img className='imglogo' src={logobig} alt="" />
+          <p className='welcome' >Bienvenido al mundo de los desarrolladores
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Hic voluptanventore vitae?</p> 
+          </div>
+        </div>
+        }
+      
+        {user && (
+          <div className='user-info' >
+            <p>Hola {user.displayName} </p>
+            <img src={user.photoURL} alt={user.displayName} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        
+        <button className='btn-login' type='button' onClick={user ? logout : loginWithGoogle} >
+         {user ? 'cerrar' : 'iniciar'} sesión
+        </button>
+      </section>
+      
       {user && (
         <Form data={data}
           setData={setData}
           user={user || {}} />
-
-
       )}
+      
+      
+        
+      
+        {user && (
 
+      <>
       <section className='favs' >
         <button className='btn-feed' type='button' onClick={() => setView("feed")} >Tweets</button>
         <button className='btn-favs' type='button' onClick={() => setView("favs")} >Favs</button>
@@ -134,12 +163,18 @@ export default function App() {
               </button>
             }
 
-
           </div>
         ))}
 
       </section>
+      </>
+      ) }
+      
 
+      
+    
+    
     </div>
+
   );
 }
