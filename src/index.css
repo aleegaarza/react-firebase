@@ -19,6 +19,8 @@ body {
 
 .login {
   align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 .btn-login {
   max-width: 240px;
@@ -184,6 +186,7 @@ display: flex;
 align-items: center;
 flex-direction: column;
 justify-content: center;
+margin-left: 250px;
 }
 
 .home {

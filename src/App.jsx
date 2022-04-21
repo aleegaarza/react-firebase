@@ -49,20 +49,83 @@ export default function App() {
           };
           tweets.push(snap);
         })
-        setData(tweets);
-        setFavs(tweets.filter(item => {
-          return item.likes > 0;
-        }
-        ))
+         setData(tweets);
+        // setFavs(tweets.filter(item => {
+        //   return item.likes > 0;
+        // }
+        // ))
         setLoading(false);
       });
 
       auth.onAuthStateChanged((user) => {
         console.warn('LOGGED WITH:', user);
-        setUser(user);
+        setUser(user)
+
+        if(user) {
+          fireStore.collection("users").get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+
+              const userDoc = doc.data()
+            if (userDoc.uid === user.uid){
+
+              setUser({
+                user, ...userDoc
+              })
+            }
+            
+            } )
+          } )
+        }
       });
     return () => { disconnect() }
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      if (data.length && user.favorites && user.favorites.length ) {
+        const favorites = user.favorites.map(favId => {
+          const tweetFav = data.find(item => item.id === favId )
+          return tweetFav
+        } )
+        .filter(item=> item !== undefined)
+        setFavs(favorites)
+
+      }
+      fireStore.collection("users")
+      .get()
+      .then(snapshot => {
+
+        if (!snapshot.size) {
+          return fireStore.collection("users").add({
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            email: user.email,
+            favorites: []
+          })
+        } else {
+          snapshot.forEach(doc => {
+            const userDoc = doc.data()
+            if (userDoc.uid !== user.uid) {
+              return fireStore.collection("users").add({
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                uid: user.uid,
+                email: user.email,
+                favorites: []
+              })
+            }
+          } )
+        }
+      } )
+      .then(doc => doc.get())
+      .then(userDoc => {
+        setUser(userDoc)
+
+      } )
+    }
+  }, [user, data])
 
   //delete tweet
   const deleteTweet = (id) => {
@@ -81,7 +144,26 @@ export default function App() {
   function likeTweet(id, likes) {
     const innerLikes = likes || 0;
     fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 })
+    fireStore.collection("users")
+    .get()
+    .then(snapshot =>{
+      snapshot.forEach(doc => {
+        const userDoc = doc.data()
+      if (userDoc.uid === user.uid) {
+        fireStore.doc(`users/${doc.id}`).update({
+          favorites: [...userDoc.favorites, id]
+
+        })
+      }
+
+      } )
+      
+    })
+    setUser({
+      ...user, favorites:[...user.favorites, id]
+    })
   }
+  
 
   
 
@@ -96,9 +178,7 @@ export default function App() {
         <div className='home' >
           <div>
           <img className='imglogo' src={logobig} alt="" />
-          <p className='welcome' >Bienvenido al mundo de los desarrolladores
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Hic voluptanventore vitae?</p> 
+          <p className='welcome' >Bienvenido al mundo de los desarrolladores</p> 
           </div>
         </div>
         }

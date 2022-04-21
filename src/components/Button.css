@@ -1,6 +1,7 @@
 Button {
   position: absolute;
-
+  padding: 20px;
+  cursor: pointer;
   font-family: "Silkscreen";
   font-style: normal;
   font-weight: 700;
@@ -10,6 +11,6 @@ Button {
   align-items: center;
   text-align: center;
   letter-spacing: -0.333333px;
-  background-color: #2f112d;
-  color: #150714;
+  background-color: #2e132c;
+  color: white;
 }
