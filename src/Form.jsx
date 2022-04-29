@@ -32,11 +32,12 @@ const Form = (
         getDoc.then(doc => {
             const currentTweet = {
                 tweet: doc.data().tweet,
-                author: doc.data().author,
+                author: doc.data().displayName,
                 id: doc.id,
                 uid: doc.data().uid,
                 photoURL: doc.data().photoURL,
-                email: doc.data().email
+                email: doc.data().email,
+                likes: doc.data().likes
 
             }
             setData([
@@ -47,7 +48,8 @@ const Form = (
         })
 
         setValue({
-            tweet: ""
+            tweet: "",
+            author: ""
         })
 
 

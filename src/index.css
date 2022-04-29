@@ -85,45 +85,58 @@ code {
 }
 section.favs {
   margin: 0 auto;
-  max-width: 480px;
+  max-width: 400px;
   height: 90px;
   background-color: #2e132c;
+
+  padding-right: 100px;
   color: white;
   border-radius: 4px;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
     0px 1px 1px 0px rgba(0, 0, 0, 0.02), 0px 4px 4px 0px rgba(0, 0, 0, 0.4);
   display: flex;
-  margin: 4px auto 12px;
-  padding: 4px 62px 4px 8px;
   position: relative;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 .btn-favs {
-  width: 30%;
-  height: 30px;
+  position: absolute;
+  left: 50%;
+  right: 0%;
+  top: 22.86%;
+  bottom: 22.86%;
 
-  color: pink;
-  letter-spacing: 0;
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
   text-align: center;
-  line-height: 22px;
-  border: none;
-  padding: 5px;
-  margin: 20px;
+  letter-spacing: -0.333333px;
   cursor: pointer;
+
+  color: #150714;
 }
 .btn-feed {
-  width: 60%;
-  height: 48px;
-  color: pink;
-  letter-spacing: 0;
+  position: absolute;
+  left: 0%;
+  right: 50%;
+  top: 22.86%;
+  bottom: 22.86%;
+
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
   text-align: center;
-  line-height: 22px;
-  border: none;
-  padding: 5px;
-  margin: 20px;
+  letter-spacing: -0.333333px;
   cursor: pointer;
+  color: #60265b;
 }
 section.tweets {
   margin: 0 auto;
@@ -174,39 +187,37 @@ section.tweets {
 }
 .welcome {
   position: absolute;
-width: 60%;
-height: 100px;
-color: white;
-font-family: 'Silkscreen';
-font-style: normal;
-font-weight: 700;
-font-size: 50px;
-line-height: 50px;
-display: flex;
-align-items: center;
-flex-direction: column;
-justify-content: center;
-margin-left: 250px;
+  width: 60%;
+  height: 100px;
+  color: white;
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 250px;
 }
 
 .home {
   height: 100%;
-width: 100%;
-left: 0px;
-top: 0px;
-border-radius: 0px;
-position: absolute;
-display: flex;
-align-content: center;
-justify-content: center;
-flex-direction: column;
-background: #2E132C;
-
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  border-radius: 0px;
+  position: absolute;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #2e132c;
 }
 .imglogo {
   height: 208.72727966308594px;
-width: 313.33331298828125px;
-
+  width: 313.33331298828125px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
