@@ -28,23 +28,15 @@ export default function App() {
       .onSnapshot((snapshot) => {
         const tweets = [];
         snapshot.forEach(doc => {
-          const {
-            tweet,
-            author,
-            email,
-            uid,
-            likes,
-            photoURL,
-          } = doc.data();
 
           const snap = {
-            tweet,
-            author,
+            tweet: doc.data().tweet,
+            author: doc.data().author,
             id: doc.id,
-            email,
-            uid,
-            photoURL,
-            likes
+            email: doc.data().email,
+            uid: doc.data().uid,
+            photoURL: doc.data().photoURL,
+            likes: doc.data().likes
 
           };
           tweets.unshift(snap);
