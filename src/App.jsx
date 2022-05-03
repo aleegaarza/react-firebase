@@ -27,7 +27,7 @@ export default function App() {
     const disconnect = fireStore.collection("tweets")
       .onSnapshot((snapshot) => {
         const tweets = [];
-        snapshot.forEach((doc) => {
+        snapshot.forEach(doc => {
           const {
             tweet,
             author,
@@ -69,7 +69,7 @@ export default function App() {
               if (userDoc.uid === user.uid) {
 
                 setUser({
-                  user, ...userDoc
+                  ...user, ...userDoc
                 })
               }
 
@@ -108,38 +108,6 @@ export default function App() {
 
       })
 
-      // fireStore.collection("users")
-      //   .get()
-      //   .then(snapshot => {
-
-      //     if (!snapshot.size) {
-      //       return fireStore.collection("users").add({
-      //         displayName: user.displayName,
-      //         photoURL: user.photoURL,
-      //         uid: user.uid,
-      //         email: user.email,
-      //         favorites: []
-      //       })
-      //     } else {
-      //       snapshot.forEach(doc => {
-      //         const userDoc = doc.data()
-      //         if (userDoc.uid !== user.uid) {
-      //           return fireStore.collection("users").add({
-      //             displayName: user.displayName,
-      //             photoURL: user.photoURL,
-      //             uid: user.uid,
-      //             email: user.email,
-      //             favorites: []
-      //           })
-      //         }
-      //       })
-      //     }
-      //   })
-      //   .then(doc => doc.get())
-      //   .then(userDoc => {
-      //     setUser(userDoc)
-
-      //   })
     }
   }, [user, data])
 
