@@ -176,7 +176,7 @@ section.tweets {
   height: 20px;
 }
 
-.likes {
+/* .likes {
   background: none;
   border: none;
   cursor: pointer;
@@ -184,7 +184,7 @@ section.tweets {
   padding: 5px;
   position: absolute;
   right: 30px;
-}
+} */
 .welcome {
   position: absolute;
   width: 60%;
@@ -218,6 +218,17 @@ section.tweets {
 .imglogo {
   height: 208.72727966308594px;
   width: 313.33331298828125px;
+}
+.user-info {
+  display: flex;
+  align-items: flex-end;
+  height: 200px;
+  width: auto;
+  color: white;
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");

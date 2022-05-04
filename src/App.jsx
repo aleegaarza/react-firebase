@@ -203,13 +203,10 @@ export default function App() {
 
                 </div>
                 <div className='tweet-actions' >
-                  <button className='likes'
-                    onClick={() => likeTweet(item.id, item.likes)} >
-                    <img src={like} alt="like" />
-                    <span>
-                      {item.likes || 0}
-                    </span>
-                  </button>
+                  <img src={like} alt="like" onClick={() => likeTweet(item.id, item.likes)} />
+                  <span>
+                    {item.likes || 0}
+                  </span>
                 </div>
 
                 {

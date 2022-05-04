@@ -60,7 +60,9 @@ const Form = (
             <textarea
                 name='tweet'
                 value={tweet}
-                onChange={handleInput} >
+                onChange={handleInput}
+                placeholder="Escribe un tweet" >
+
 
             </textarea>
 
